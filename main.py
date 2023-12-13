@@ -4,11 +4,10 @@ from models.creditors_model import Creditor
 from models.inquiries_model import Inquirie
 
 from fastapi import FastAPI, Response, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import StreamingResponse
 from io import BytesIO
 import fitz
-
-
 
 
 def extract_text_from_pdf(doc):
@@ -25,6 +24,19 @@ def extract_text_from_pdf(doc):
 
 app = FastAPI()
 
+origins = [
+    "http://localhost",
+    "http://localhost:5173",
+    "*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # route to return the pdf file Reports(1).pdf in same directory
 @app.get("/pdf_by_id/{pdf_id}")
