@@ -16,7 +16,7 @@ def extract_text_from_pdf(doc):
     for page_num in range(doc.page_count):
         page = doc.load_page(page_num)
         text = page.get_text()
-        all_text += text + "\n\n"  # Adiciona o texto da página com uma quebra de linha entre as páginas
+        all_text += text + "\n\n" 
 
     doc.close()
     return all_text
@@ -38,7 +38,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# route to return the pdf file Reports(1).pdf in same directory
 @app.get("/pdf_by_id/{pdf_id}")
 async def get_pdf(pdf_id: str):
     """
